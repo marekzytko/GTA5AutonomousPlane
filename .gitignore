@@ -1,0 +1,6 @@
+data*
+checkpoint
+/__pycache__
+.pylintrc
+gta5.model*
+/gta5.model
