@@ -38,7 +38,7 @@ MONITOR_NUM = 0
 
 #Number of frames + keys combinations per file
 FILE_SIZE = 200
-RESIZE = (120, 80)
+RESIZE = (180, 120)
 
 COUNTER = 0
 
@@ -123,7 +123,7 @@ while True:
 
         frame = frame.resize(RESIZE)
         frame = np.asarray(frame)
-        frame = frame.reshape(1, 80, 120, 3)
+        frame = frame.reshape(1, RESIZE[1], RESIZE[0], 3)
 
         pred = model.predict(
             x=frame,

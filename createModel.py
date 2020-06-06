@@ -1,23 +1,23 @@
 from tensorflow.keras import layers, models, optimizers, regularizers, metrics
 import numpy as np
 
-N_FILES = 14
+N_FILES = 16
 PATH = r'D:\AutonomusGTA5Plane'
 MODEL_NAME = r'\gta5.model'
 #Frame size (after previous resizing [getData])
-SIZE = (120, 80)
+RESIZE = (180, 120)
 
 #Model parameters:
 BATCH_SIZE = 8
 LR = 0.001
-EPOCHS = 10
+EPOCHS = 20
 
 #TODO
 #Modify using ConvLSTM2D
 
 model = models.Sequential()
 
-model.add(layers.Conv2D(filters=32, activation='relu', kernel_size=(3, 3), input_shape=(80, 120, 3), activity_regularizer=regularizers.l1(0.001)))
+model.add(layers.Conv2D(filters=32, activation='relu', kernel_size=(3, 3), input_shape=(RESIZE[1], RESIZE[0], 3), activity_regularizer=regularizers.l1(0.001)))
 model.add(layers.MaxPooling2D((2, 2)))
 
 model.add(layers.Conv2D(filters=64, activation='relu', kernel_size=(3, 3), activity_regularizer=regularizers.l2(0.001)))
@@ -45,14 +45,14 @@ data_y = []
 print('Loading data!')
 
 for i in range(1, N_FILES + 1):
-    data = np.load(fr'D:\gta_ai_autlopilot\data{i}.npz', allow_pickle=True)
+    data = np.load(fr'{PATH}\data{i}.npz', allow_pickle=True)
     data = data['arr_0']
 
     data_x.append([x[0] for x in data])
     data_y.append([x[1] for x in data])
     print(f'data{i}.npz loaded!')
 
-data_x = np.asarray(data_x).reshape(-1, SIZE[1], SIZE[0], 3)
+data_x = np.asarray(data_x).reshape(-1, RESIZE[1], RESIZE[0], 3)
 data_y = np.asarray(data_y).reshape(-1, 8)
 
 print(data_x.shape)

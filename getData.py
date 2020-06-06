@@ -22,7 +22,7 @@ CORR_TOP = 35
 CORR_WIDTH = -20
 CORR_HEIGHT = -45
 
-PAUSED = True
+PAUSED = False
 
 #Countdown delay in seconds
 DELAY = 5
@@ -32,7 +32,7 @@ MONITOR_NUM = 0
 
 #Number of frames + keys combinations per file
 FILE_SIZE = 200
-RESIZE = (120, 80)
+RESIZE = (180, 120)
 
 
 #Do not touch, frame counter
@@ -85,8 +85,15 @@ while os.path.isfile(f'{PATH}{FILENAME}{FILENAME_COUNTER}.npz'):
 print('Open GTA V, enter game and press "R" when ready to begin frames recording!')
 print('Press "R" again to pause recording')
 
+while True:
+    if getKey() == False:
+        print(getKey())
+        break
+    time.sleep(0.2)
+
 
 WINDOW_DIMS = win32gui.GetWindowRect(win32gui.GetForegroundWindow())
+print('[*]window captured')
 #print(WINDOW_DIMS)
 
 print(f'Recording to file beginning from {FILENAME}{FILENAME_COUNTER}.npz')

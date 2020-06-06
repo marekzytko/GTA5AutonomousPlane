@@ -4,3 +4,4 @@ checkpoint
 .pylintrc
 gta5.model*
 /gta5.model
+/planeData
