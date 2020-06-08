@@ -12,7 +12,7 @@ from PIL import Image
 
 #FIXME
 #Front slash breaks single quote despite rawstring...
-PATH = r'D:\AutonomusGTA5Plane'
+PATH = r'D:\github\GTA5AutonomusPlane'
 FILENAME = r'\data'
 FILENAME_COUNTER = 1
 
@@ -55,24 +55,21 @@ def capture_screenshot(monitorNum: int, dimensions: tuple):
         return Image.frombytes('RGB', sct_img.size, sct_img.bgra, 'raw', 'RGBX')
         #return np.array(sct_img)
 
+#TODO
+#Add key list generator
+
 def getKey():
-    keys = [0, 0, 0, 0, 0, 0, 0, 0]
-    if win32api.GetAsyncKeyState(win32con.VK_NUMPAD8):
-        keys[0] = 1
-    if win32api.GetAsyncKeyState(win32con.VK_NUMPAD4):
-        keys[1] = 1
-    if win32api.GetAsyncKeyState(win32con.VK_NUMPAD5):
-        keys[2] = 1
-    if win32api.GetAsyncKeyState(win32con.VK_NUMPAD6):
-        keys[3] = 1
+    keys = [0, 0, 0, 0, 0]
     if win32api.GetAsyncKeyState(ord('W')):
-        keys[4] = 1
+        keys[0] = 1
     if win32api.GetAsyncKeyState(ord('A')):
-        keys[5] = 1
+        keys[1] = 1
     if win32api.GetAsyncKeyState(ord('S')):
-        keys[6] = 1
+        keys[2] = 1
     if win32api.GetAsyncKeyState(ord('D')):
-        keys[7] = 1
+        keys[3] = 1
+    if win32api.GetAsyncKeyState(win32con.VK_SPACE):
+        keys[4] = 1
     if win32api.GetAsyncKeyState(ord('R')):
         return False
     return keys

@@ -10,7 +10,7 @@ import keyboard
 
 
 #FIXME
-PATH = r'D:\AutonomusGTA5Plane'
+PATH = r'D:\github\GTA5AutonomusPlane'
 FILENAME = r'\data'
 FILENAME_COUNTER = 1
 #FIXME
@@ -61,34 +61,36 @@ def capture_screenshot(monitorNum: int, dimensions: tuple):
 
 def pressKey(key: list):
 
-    for i in ('j', 'k', 'l', 'i', 'w', 'a', 's', 'd'):
+    for i in ('w', 'a', 's', 'd', 'space'):
         keyboard.release(i)
 
+    #if key[0] > THRESHOLD:
+    #     keyboard.press('i')
+    #     print("DOWN")
+    # if key[1] > THRESHOLD:
+    #     keyboard.press('j')
+    #     print("YAW LEFT")
+    # if key[2] > THRESHOLD:
+    #     keyboard.press('k')
+    #     print("UP")
+    # if key[3] > THRESHOLD:
+    #     keyboard.press('l')
+    #     print("YAW RIGHT")
     if key[0] > THRESHOLD:
-        keyboard.press('i')
-        print("DOWN")
-    if key[1] > THRESHOLD:
-        keyboard.press('j')
-        print("YAW LEFT")
-    if key[2] > THRESHOLD:
-        keyboard.press('k')
-        print("UP")
-    if key[3] > THRESHOLD:
-        keyboard.press('l')
-        print("YAW RIGHT")
-    if key[4] > THRESHOLD:
         keyboard.press('w')
         print("SPEED")
-    if key[5] > THRESHOLD:
+    if key[1] > THRESHOLD:
         keyboard.press('a')
         print("LEFT")
-    if key[6] > THRESHOLD:
+    if key[2] > THRESHOLD:
         keyboard.press('s')
         print("SLOW DOWN")
-    if key[7] > THRESHOLD:
+    if key[3] > THRESHOLD:
         keyboard.press('d')
         print("RIGHT")
-
+    if key[4] > THRESHOLD:
+        keyboard.press('space')
+        print("SPACE")
 
 def getKey():
     if win32api.GetAsyncKeyState(ord('R')):
@@ -101,6 +103,9 @@ tf.config.experimental.set_memory_growth(tf.config.list_physical_devices('GPU')[
 print('loading model...')
 
 model = tf.keras.models.load_model(rf'{PATH}\gta5.model')
+
+for i in range(0,10):
+    print(f'\n\nMAX WEIGHT\n {i} layer:', np.amax(np.asarray(model.get_weights()[i])))
 
 print('model loaded!\n')
 print('Open GTA V, enter game and press "R" when ready to start autonomus ride!')
@@ -130,14 +135,14 @@ while True:
             use_multiprocessing=True,
         )
         pred = pred[0]
-        keys = getKey()
+        #keys = getKey()
         
         #Comment out to see raw prediction
-        #print('Prediction: ', pred)
+        print('Prediction: ', pred)
         
         print('\n\n')
         pressKey(pred)
-        if not keys:
+        if not getKey():
             print("-- PAUSED! --")
             PAUSED = True
             continue
