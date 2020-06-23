@@ -12,3 +12,8 @@ To train model based on recorded data, simply run "createModel.py". Training tim
 
 If you want to try autonomus steering, open "testModel.py" and follow instructions!
 Have fun!
+
+
+### neural net architecture:
+
+![](https://i.imgur.com/EwcnpzR.png)
