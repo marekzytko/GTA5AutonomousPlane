@@ -14,6 +14,6 @@ If you want to try autonomus steering, open "testModel.py" and follow instructio
 Have fun!
 
 
-### neural net architecture:
+### Neural net architecture:
 
 ![](https://i.imgur.com/EwcnpzR.png)
