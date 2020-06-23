@@ -9,11 +9,9 @@ from PIL import Image
 import keyboard
 
 
-#FIXME
 PATH = r'D:\github\GTA5AutonomusPlane'
 FILENAME = r'\data'
 FILENAME_COUNTER = 1
-#FIXME
 
 
 #Threshold for taking probability as '1' (>threshold) or '0' (<threshold)
@@ -21,6 +19,10 @@ FILENAME_COUNTER = 1
 #prediction =  [0.01791193 0.03657481 0.07042961 0.31700492 0.26643234 0.13070646 0.04718563 0.11375429]
 #becames:      [0          0          0          1          1          0          0          0]
 THRESHOLD = 0.18
+
+#For how long (in ms) lengthen key pressing
+#Using too big values may decrease fps rate
+PRESS_DELAY = 20 #ms
 
 #Correction margins (appropriate screen capture)
 CORR_LEFT = 8
@@ -52,7 +54,6 @@ def capture_screenshot(monitorNum: int, dimensions: tuple):
             "height": dimensions[3] - dimensions[1] + CORR_HEIGHT,
             "mon": monitorNum
             }
-        
         sct_img = sct.grab(rect)
 
         # Convert to PIL/Pillow Image
@@ -61,22 +62,12 @@ def capture_screenshot(monitorNum: int, dimensions: tuple):
 
 def pressKey(key: list):
 
-    for i in ('w', 'a', 's', 'd', 'space'):
+    for i in ('w', 'a', 's', 'd', 'i', 'j', 'k', 'l'):
         keyboard.release(i)
+    if max(key) < THRESHOLD:
+        print('NO KEY')
 
-    #if key[0] > THRESHOLD:
-    #     keyboard.press('i')
-    #     print("DOWN")
-    # if key[1] > THRESHOLD:
-    #     keyboard.press('j')
-    #     print("YAW LEFT")
-    # if key[2] > THRESHOLD:
-    #     keyboard.press('k')
-    #     print("UP")
-    # if key[3] > THRESHOLD:
-    #     keyboard.press('l')
-    #     print("YAW RIGHT")
-    if key[0] > THRESHOLD:
+    elif key[0] > THRESHOLD:
         keyboard.press('w')
         print("SPEED")
     if key[1] > THRESHOLD:
@@ -88,9 +79,21 @@ def pressKey(key: list):
     if key[3] > THRESHOLD:
         keyboard.press('d')
         print("RIGHT")
+
     if key[4] > THRESHOLD:
-        keyboard.press('space')
-        print("SPACE")
+        keyboard.press('i')
+        print("DOWN")
+    if key[5] > THRESHOLD:
+        keyboard.press('j')
+        print("YAW LEFT")
+    if key[6] > THRESHOLD:
+        keyboard.press('k')
+        print("UP")
+    if key[7] > THRESHOLD:
+        keyboard.press('l')
+        print("YAW RIGHT")
+
+    time.sleep(PRESS_DELAY/1000)
 
 def getKey():
     if win32api.GetAsyncKeyState(ord('R')):

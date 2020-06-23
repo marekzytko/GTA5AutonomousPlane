@@ -1,7 +1,7 @@
 from tensorflow.keras import layers, models, optimizers, regularizers, metrics, callbacks
 import numpy as np
 
-N_FILES = 37
+N_FILES = 1
 PATH = r'D:\github\GTA5AutonomusPlane'
 MODEL_NAME = r'\gta5.model'
 #Frame size (after previous resizing [getData])
@@ -10,7 +10,7 @@ RESIZE = (180, 120)
 #Model parameters:
 BATCH_SIZE = 8
 LR = 0.01
-EPOCHS = 10
+EPOCHS = 1
 
 #TODO
 #Modify using ConvLSTM2D
@@ -36,7 +36,7 @@ model.add(layers.Flatten())
 
 model.add(layers.Dense(units=128, activation='relu', activity_regularizer=regularizers.l1(0.02)))
 #Output layer:
-model.add(layers.Dense(units=5, activation='softmax'))
+model.add(layers.Dense(units=8, activation='softmax'))
 
 model.summary()
 
@@ -60,7 +60,7 @@ for i in range(1, N_FILES + 1):
     print(f'data{i}.npz loaded!')
 
 data_x = np.asarray(data_x).reshape(-1, RESIZE[1], RESIZE[0], 3)
-data_y = np.asarray(data_y).reshape(-1, 5)
+data_y = np.asarray(data_y).reshape(-1, 8)
 
 print(data_x.shape)
 print(data_y.shape)

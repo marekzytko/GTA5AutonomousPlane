@@ -59,7 +59,7 @@ def capture_screenshot(monitorNum: int, dimensions: tuple):
 #Add key list generator
 
 def getKey():
-    keys = [0, 0, 0, 0, 0]
+    keys = [0, 0, 0, 0, 0, 0, 0, 0]
     if win32api.GetAsyncKeyState(ord('W')):
         keys[0] = 1
     if win32api.GetAsyncKeyState(ord('A')):
@@ -68,8 +68,14 @@ def getKey():
         keys[2] = 1
     if win32api.GetAsyncKeyState(ord('D')):
         keys[3] = 1
-    if win32api.GetAsyncKeyState(win32con.VK_SPACE):
+    if win32api.GetAsyncKeyState(win32con.VK_NUMPAD8):
         keys[4] = 1
+    if win32api.GetAsyncKeyState(win32con.VK_NUMPAD4):
+        keys[5] = 1
+    if win32api.GetAsyncKeyState(win32con.VK_NUMPAD5):
+        keys[6] = 1
+    if win32api.GetAsyncKeyState(win32con.VK_NUMPAD6):
+        keys[7] = 1
     if win32api.GetAsyncKeyState(ord('R')):
         return False
     return keys
