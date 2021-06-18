@@ -17,3 +17,8 @@ Have fun!
 ### Neural net architecture:
 
 ![](https://i.imgur.com/EwcnpzR.png)
+
+
+
+Inspired by Sentdex project - GTA5 autonomus car driving series
+https://github.com/Sentdex/pygta5
